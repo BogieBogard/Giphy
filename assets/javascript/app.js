@@ -11,7 +11,7 @@ var marvelArray = ["spiderman", "wolverine", "deadpool"];
 for (var i = 0; i < marvelArray.length; i++) {
   var newButtons = "<button character-name=" + marvelArray[i] + ">" + marvelArray[i] + "</button>";
   $("#marvelButtons").append(newButtons);
-};
+}
 
 $("button").on("click", function (event) {
   var character = $(this).attr("character-name");
@@ -61,4 +61,58 @@ $("button").on("click", function (event) {
 function customButtonFunction() {
   event.preventDefault();
   console.log("Custom content received");
+  var userContent = document.getElementById("customInput");
+  console.log(userContent.value);
+  console.log(marvelArray);
+  marvelArray.push(userContent.value);
+  console.log(marvelArray);
+
+  for (var i = 0; i < marvelArray.length; i++) {
+    var newButtons = "<button character-name=" + marvelArray[i] + ">" + marvelArray[i] + "</button>";
+    $("#marvelButtons").append(newButtons);
+  }
+
+  $("button").on("click", function (event) {
+    var character = $(this).attr("character-name");
+  
+    // Constructing a queryURL using the animal name
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+      character + "&api_key=dc6zaTOxFJmzC&limit=10";
+  
+    // Performing an AJAX request with the queryURL
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      // After data comes back from the request
+      .then(function (response) {
+        console.log(queryURL);
+  
+        console.log(response);
+        // storing the data from the AJAX request in the results variable
+        var results = response.data;
+  
+        // Looping through each result item
+        for (var i = 0; i < results.length; i++) {
+  
+          // Creating and storing a div tag
+          var marvelDiv = $("<div>");
+          console.log(results[i]);
+          // Creating a paragraph tag with the result item's rating
+          var p = $("<p>").text("Rating: " + results[i].rating);
+  
+          // Creating and storing an image tag
+          var animalImage = $("<img>");
+          // Setting the src attribute of the image to a property pulled off the result item
+          animalImage.attr("src", results[i].images.fixed_height.url);
+  
+          // Appending the paragraph and image tag to the marvelDiv
+          marvelDiv.append(p);
+          marvelDiv.append(animalImage);
+  
+          // Prependng the marvelDiv to the HTML page in the "#gifs-appear-here" div
+          $("#gifs-appear-here").prepend(marvelDiv);
+        }
+      });
+  });
 };
