@@ -43,7 +43,10 @@ $("button").on("click", function (event) {
         // Creating and storing an image tag
         var marvelImage = $("<img>");
         // Setting the src attribute of the image to a property pulled off the result item
-        marvelImage.attr("src", results[i].images.fixed_height.url);
+        marvelImage.attr("src", results[i].images.fixed_height_still.url);
+
+        // Capturing the gif's animated data in this variable so that we can access it later in the click function below to change the state
+        var marvelAnimatedContent = (results[i].images.fixed_height.url);
 
         // Appending the image tag to the marvelDiv
         marvelDiv.append(marvelImage);
@@ -51,6 +54,12 @@ $("button").on("click", function (event) {
         // Prependng the marvelDiv to the HTML page in the "#gifs-appear-here" div
         $("#gifs-appear-here").prepend(marvelDiv);
       }
+      // If a marvel gif is clicked then its state changes from a still gif to an animated gif
+      $(marvelImage).on("click", function () {
+        console.log("Marvel button clicked");
+        console.log(marvelAnimatedContent);
+        marvelImage.attr("src", marvelAnimatedContent);
+      });
     });
 });
 
@@ -74,11 +83,11 @@ function customButtonFunction() {
 
   $("button").on("click", function (event) {
     var character = $(this).attr("character-name");
-  
+
     // Constructing a queryURL using the marvel name
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       character + "&api_key=dc6zaTOxFJmzC&limit=10";
-  
+
     // Performing an AJAX request with the queryURL
     $.ajax({
       url: queryURL,
@@ -87,26 +96,26 @@ function customButtonFunction() {
       // After data comes back from the request
       .then(function (response) {
         console.log(queryURL);
-  
+
         console.log(response);
         // storing the data from the AJAX request in the results variable
         var results = response.data;
-  
+
         // Looping through each result item
         for (var i = 0; i < results.length; i++) {
-  
+
           // Creating and storing a div tag
           var marvelDiv = $("<div>");
           console.log(results[i]);
-  
+
           // Creating and storing an image tag
           var marvelImage = $("<img>");
           // Setting the src attribute of the image to a property pulled off the result item
           marvelImage.attr("src", results[i].images.fixed_height.url);
-  
+
           // Appending the image tag to the marvelDiv
           marvelDiv.append(marvelImage);
-  
+
           // Prependng the marvelDiv to the HTML page in the "#gifs-appear-here" div
           $("#gifs-appear-here").prepend(marvelDiv);
         }
