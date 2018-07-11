@@ -59,12 +59,12 @@ $("button").on("click", function (event) {
       // If a marvel gif is clicked then its state changes from a still gif to an animated gif
       $(marvelImage).on("click", function () {
         console.log("Marvel gif clicked");
-        if (marvelImage.attr("src", marvelStillContent)) {
+        if ($(this).attr("src", marvelStillContent)) {
           console.log("YAS");
-          marvelImage.attr("src", marvelAnimatedContent);
+          $(this).attr("src", marvelAnimatedContent);
         } else {
           console.log("else triggered");
-          marvelImage.attr("src", marvelStillContent);
+          $(this).attr("src", marvelStillContent);
         }
       });
     });
@@ -73,7 +73,7 @@ $("button").on("click", function (event) {
 // The custom Array will be used to make buttons from the custom entries of the user.
 var customArray = [];
 
-// This function handles the custom text content provided by the user
+// The below function handles the custom text content provided by the user
 function customButtonFunction() {
   event.preventDefault();
   var userContent = document.getElementById("customInput");
