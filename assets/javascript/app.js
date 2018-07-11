@@ -57,18 +57,21 @@ $("button").on("click", function (event) {
     });
 });
 
+// The custom Array will be used to make buttons from the custom entries of the user.
+var customArray = [];
+
 // This function handles the custom text content provided by the user
 function customButtonFunction() {
   event.preventDefault();
   console.log("Custom content received");
   var userContent = document.getElementById("customInput");
   console.log(userContent.value);
-  console.log(marvelArray);
-  marvelArray.push(userContent.value);
-  console.log(marvelArray);
+  console.log(customArray);
+  customArray.push(userContent.value);
+  console.log(customArray);
 
-  for (var i = 0; i < marvelArray.length; i++) {
-    var newButtons = "<button character-name=" + marvelArray[i] + ">" + marvelArray[i] + "</button>";
+  for (var i = 0; i < customArray.length; i++) {
+    var newButtons = "<button character-name=" + customArray[i] + ">" + customArray[i] + "</button>";
     $("#marvelButtons").append(newButtons);
   }
 
