@@ -27,9 +27,6 @@ $("button").on("click", function (event) {
   })
     // After data comes back from the request
     .then(function (response) {
-      console.log(queryURL);
-
-      console.log(response);
       // storing the data from the AJAX request in the results variable
       var results = response.data;
 
@@ -38,16 +35,12 @@ $("button").on("click", function (event) {
 
         // Creating and storing a div tag
         var marvelDiv = $("<div>");
-        console.log(results[i]);
-
-        // Capturing the gif's animated and still data in these variables so that we can access it later in the click function below to change the state
-        var marvelAnimatedContent = (results[i].images.fixed_height.url);
-        var marvelStillContent = (results[i].images.fixed_height_still.url);
 
         // Creating and storing an image tag
-        var marvelImage = $("<img>");
+        var marvelImage = $("<img class='generatedGif'"+"data-still='"+results[i].images.fixed_height_still.url+"' data-animate='"+results[i].images.fixed_height.url+"' data-state='still'>");
+
         // Setting the src attribute of the image to a property pulled off the result item
-        marvelImage.attr("src", marvelStillContent);
+        marvelImage.attr("src", results[i].images.fixed_height_still.url);
 
         // Appending the image tag to the marvelDiv
         marvelDiv.append(marvelImage);
@@ -57,14 +50,21 @@ $("button").on("click", function (event) {
       }
 
       // If a marvel gif is clicked then its state changes from a still gif to an animated gif
-      $(marvelImage).on("click", function () {
+      $(".generatedGif").on("click", function () {
         console.log("Marvel gif clicked");
-        if ($(this).attr("src", marvelStillContent)) {
-          console.log("YAS");
-          $(this).attr("src", marvelAnimatedContent);
+        console.log(this);
+        var state = $(this).attr("data-state");
+        console.log(state);
+        var animateURL = $(this).attr("data-animate");
+        var stillURL = $(this).attr("data-still");
+        if (state === "still") {
+          console.log("Still confirmed");
+          $(this).attr("src", animateURL);
+          $(this).attr("data-state", "animate")
         } else {
           console.log("else triggered");
-          $(this).attr("src", marvelStillContent);
+          $(this).attr("src", stillURL);
+          $(this).attr("data-state", "still");
         }
       });
     });
@@ -87,6 +87,7 @@ function customButtonFunction() {
     var newButtons = "<button character-name=" + customArray[i] + ">" + customArray[i] + "</button>";
     $("#marvelButtons").append(newButtons);
   }
+
   $("button").on("click", function (event) {
     var character = $(this).attr("character-name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
