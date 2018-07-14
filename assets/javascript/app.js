@@ -33,6 +33,8 @@ $("button").on("click", function (event) {
       // Looping through each result item
       for (var i = 0; i < results.length; i++) {
 
+        //$("#gifs-appear-here").empty();
+
         // Creating and storing a div tag
         var marvelDiv = $("<div>");
 
