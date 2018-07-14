@@ -51,18 +51,13 @@ $("button").on("click", function (event) {
 
       // If a marvel gif is clicked then its state changes from a still gif to an animated gif
       $(".generatedGif").on("click", function () {
-        console.log("Marvel gif clicked");
-        console.log(this);
         var state = $(this).attr("data-state");
-        console.log(state);
         var animateURL = $(this).attr("data-animate");
         var stillURL = $(this).attr("data-still");
         if (state === "still") {
-          console.log("Still confirmed");
           $(this).attr("src", animateURL);
           $(this).attr("data-state", "animate")
         } else {
-          console.log("else triggered");
           $(this).attr("src", stillURL);
           $(this).attr("data-state", "still");
         }
@@ -109,18 +104,13 @@ function customButtonFunction() {
 
         // If a marvel gif is clicked then its state changes from a still gif to an animated gif
         $(".generatedGif").on("click", function () {
-          console.log("Marvel gif clicked");
-          console.log(this);
           var state = $(this).attr("data-state");
-          console.log(state);
           var animateURL = $(this).attr("data-animate");
           var stillURL = $(this).attr("data-still");
           if (state === "still") {
-            console.log("Still confirmed");
             $(this).attr("src", animateURL);
             $(this).attr("data-state", "animate")
           } else {
-            console.log("else triggered");
             $(this).attr("src", stillURL);
             $(this).attr("data-state", "still");
           }
