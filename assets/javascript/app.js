@@ -14,6 +14,7 @@ for (var i = 0; i < marvelArray.length; i++) {
 }
 
 $("button").on("click", function (event) {
+  $("#gifs-appear-here").empty();
   var character = $(this).attr("character-name");
 
   // Constructing a queryURL using the marvel name
@@ -86,6 +87,7 @@ function customButtonFunction() {
   }
 
   $("button").on("click", function (event) {
+    $("#gifs-appear-here").empty();
     var character = $(this).attr("character-name");
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
       character + "&api_key=dc6zaTOxFJmzC&limit=10";
